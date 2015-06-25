@@ -318,7 +318,6 @@ CRuntime::inrange = (type, value) ->
         value <= limit.max and value >= limit.min
     else
         true
-
 CRuntime::isNumericType = (type) ->
     @isFloatType(type) or @isIntegerType(type)
 

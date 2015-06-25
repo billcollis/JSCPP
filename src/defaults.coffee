@@ -353,8 +353,8 @@ module.exports = ->
     @types["(uint64_t)"] = defaultOpHandler      #BC
     @types["(float)"] = defaultOpHandler
     @types["(double)"] = defaultOpHandler
-    @types["(single)"] = defaultOpHandler      #BC
-    @types["(bool)"] = boolHandler
+    @types["(single)"] = defaultOpHandler
+    @types["(bool)"] = defaultOpHandler
     @types["pointer"] =
         "o(==)": "#default": (rt, l, r) ->
             if rt.isTypeEqualTo(l.t, r.t)

@@ -192,12 +192,21 @@ StorageClassSpecifier
 
 TypeSpecifier
     = a: (VOID
-    / CHAR
+    / UINT8_T
+	/ INT8_T
+	/ UINT16_T
+	/ INT16_T
+	/ UINT32_T
+	/ INT32_T
+	/ UINT64_T
+	/ INT64_T
+	/ CHAR
     / SHORT
     / INT
     / LONG
     / FLOAT
     / DOUBLE
+	/ SINGLE
     / SIGNED
     / UNSIGNED
     / BOOL
@@ -613,6 +622,10 @@ FOR       = a:"for"           !IdChar Spacing {return a;};
 GOTO      = a:"goto"          !IdChar Spacing {return a;};
 IF        = a:"if"            !IdChar Spacing {return a;};
 INT       = a:"int"           !IdChar Spacing {return a;};
+INT8_T    = a:"int8_t"        !IdChar Spacing {return a;};
+INT16_T   = a:"int16_t"       !IdChar Spacing {return a;};
+INT32_T   = a:"int32_t"       !IdChar Spacing {return a;};
+INT64_T   = a:"int64_t"       !IdChar Spacing {return a;};
 INLINE    = a:"inline"        !IdChar Spacing {return a;};
 LONG      = a:"long"          !IdChar Spacing {return a;};
 REGISTER  = a:"register"      !IdChar Spacing {return a;};
@@ -620,11 +633,16 @@ RESTRICT  = a:"restrict"      !IdChar Spacing {return a;};
 RETURN    = a:"return"        !IdChar Spacing {return a;};
 SHORT     = a:"short"         !IdChar Spacing {return a;};
 SIGNED    = a:"signed"        !IdChar Spacing {return a;};
+SINGLE    = a:"single"        !IdChar Spacing {return a;};
 SIZEOF    = a:"sizeof"        !IdChar Spacing {return a;};
 STATIC    = a:"static"        !IdChar Spacing {return a;};
 STRUCT    = a:"struct"        !IdChar Spacing {return a;};
 SWITCH    = a:"switch"        !IdChar Spacing {return a;};
 TYPEDEF   = a:"typedef"       !IdChar Spacing {return a;};
+UINT8_T   = a:"uint8_t"       !IdChar Spacing {return a;};
+UINT16_T  = a:"uint16_t"      !IdChar Spacing {return a;};
+UINT32_T  = a:"uint32_t"      !IdChar Spacing {return a;};
+UINT64_T  = a:"uint64_t"      !IdChar Spacing {return a;};
 UNION     = a:"union"         !IdChar Spacing {return a;};
 UNSIGNED  = a:"unsigned"      !IdChar Spacing {return a;};
 VOID      = a:"void"          !IdChar Spacing {return a;};
@@ -658,6 +676,10 @@ Keyword
       / "goto"
       / "if"
       / "int"
+	  / "int8_t"
+	  / "int16_t"
+	  / "int32_t"
+	  / "int64_t"
       / "inline"
       / "long"
       / "register"
@@ -665,11 +687,16 @@ Keyword
       / "return"
       / "short"
       / "signed"
+	  / "single"
       / "sizeof"
       / "static"
       / "struct"
       / "switch"
       / "typedef"
+	  / "uint8_t"
+	  / "uint16_t"
+	  / "uint32_t"
+	  / "uint64_t"
       / "union"
       / "unsigned"
       / "void"

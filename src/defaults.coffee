@@ -21,13 +21,13 @@ module.exports = ->
                 max: 0xffff
                 min: 0x0000
                 bytes: 2
-            "int":
-                max: 0x7fffffff
-                min: -0x80000000
+            "int":#BC changed int from 4bytes to 2bytes
+                max: 0x7fff
+                min: -0x8000
                 bytes: 4
             "unsigned":
-                max: 0xffffffff
-                min: 0x00000000
+                max: 0xffff
+                min: 0x0000
                 bytes: 4
             "long":
                 max: 0x7fffffff
@@ -50,9 +50,9 @@ module.exports = ->
                 min: -3.40282346638529e+038
                 bytes: 4
             "double":
-                max: 1.79769313486232e+308
-                min: -1.79769313486232e+308
-                bytes: 8
+                max: 3.40282346638529e+038
+                min: -3.40282346638529e+038
+                bytes: 4
             "pointer":
                 max: undefined
                 min: undefined
@@ -62,14 +62,19 @@ module.exports = ->
                 min: 0
                 bytes: 1
         loadedLibraries: []
-    @config.limits["short int"] = @config.limits["short"]
+    @config.limits["int8_t"] = @config.limits["signed char"]# BC addition
+    @config.limits["uint8_t"] = @config.limits["unsigned char"]# BC addition@config.limits["short int"] = @config.limits["short"]
     @config.limits["signed short"] = @config.limits["short"]
     @config.limits["signed short int"] = @config.limits["short"]
     @config.limits["unsigned short int"] = @config.limits["unsigned short"]
+    @config.limits["int16_t"] = @config.limits["int"]#BC addition
+    @config.limits["uint16_t"] = @config.limits["unsigned"]#BC addition
     @config.limits["signed int"] = @config.limits["int"]
     @config.limits["unsigned int"] = @config.limits["unsigned"]
     @config.limits["long int"] = @config.limits["long"]
     @config.limits["long int"] = @config.limits["long"]
+    @config.limits["int32_t"] = @config.limits["long"]#BC addition
+    @config.limits["uint32_t"] = @config.limits["unsigned long"]#BC addition
     @config.limits["signed long"] = @config.limits["long"]
     @config.limits["signed long int"] = @config.limits["long"]
     @config.limits["unsigned long int"] = @config.limits["unsigned long"]
@@ -77,7 +82,10 @@ module.exports = ->
     @config.limits["long long int"] = @config.limits["long long"]
     @config.limits["signed long long"] = @config.limits["long long"]
     @config.limits["signed long long int"] = @config.limits["long long"]
+    @config.limits["int64_t"] = @config.limits["long long"]#BC addition
+    @config.limits["uint64_t"] = @config.limits["unsigned long long"]#BC addition
     @config.limits["unsigned long long int"] = @config.limits["unsigned long long"]
+    @config.limits["single"] = @config.limits["float"]# BC addition
 
     @numericTypeOrder = [
         "char"
@@ -309,16 +317,20 @@ module.exports = ->
             rt.val rett, ret
     @types = "global": {}
     @types["(char)"] = defaultOpHandler
+    @types["(int8_t)"] = defaultOpHandler#BC
     @types["(signed char)"] = defaultOpHandler
+    @types["(uint8_t)"] = defaultOpHandler#BC
     @types["(unsigned char)"] = defaultOpHandler
     @types["(short)"] = defaultOpHandler
     @types["(short int)"] = defaultOpHandler
     @types["(signed short)"] = defaultOpHandler
     @types["(signed short int)"] = defaultOpHandler
+    @types["(int16_t)"] = defaultOpHandler#BC
     @types["(unsigned short)"] = defaultOpHandler
     @types["(unsigned short int)"] = defaultOpHandler
     @types["(int)"] = defaultOpHandler
     @types["(signed int)"] = defaultOpHandler
+    @types["(uint16_t)"] = defaultOpHandler      #BC
     @types["(unsigned)"] = defaultOpHandler
     @types["(unsigned int)"] = defaultOpHandler
     @types["(long)"] = defaultOpHandler
@@ -326,18 +338,23 @@ module.exports = ->
     @types["(long int)"] = defaultOpHandler
     @types["(signed long)"] = defaultOpHandler
     @types["(signed long int)"] = defaultOpHandler
+    @types["(int32_t)"] = defaultOpHandler      #BC
     @types["(unsigned long)"] = defaultOpHandler
     @types["(unsigned long int)"] = defaultOpHandler
+    @types["(uint32_t)"] = defaultOpHandler      #BC
     @types["(long long)"] = defaultOpHandler
     @types["(long long int)"] = defaultOpHandler
     @types["(long long int)"] = defaultOpHandler
     @types["(signed long long)"] = defaultOpHandler
     @types["(signed long long int)"] = defaultOpHandler
+    @types["(int64_t)"] = defaultOpHandler      #BC
     @types["(unsigned long long)"] = defaultOpHandler
     @types["(unsigned long long int)"] = defaultOpHandler
+    @types["(uint64_t)"] = defaultOpHandler      #BC
     @types["(float)"] = defaultOpHandler
     @types["(double)"] = defaultOpHandler
-    @types["(bool)"] = defaultOpHandler
+    @types["(single)"] = defaultOpHandler      #BC
+    @types["(bool)"] = boolHandler
     @types["pointer"] =
         "o(==)": "#default": (rt, l, r) ->
             if rt.isTypeEqualTo(l.t, r.t)

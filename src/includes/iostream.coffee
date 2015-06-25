@@ -37,15 +37,15 @@ module.exports = load: (rt) ->
                 b = _cin.v.buf
                 _cin.v.eofbit = b.length is 0
                 switch t.t.name
-                    when "char", "signed char", "unsigned char"
+                    when "char", "signed char", "unsigned char" , "uint8_t", "int8_t"
                         b = _skipSpace(b)
                         r = _read(rt, /^./, b, t.t)
                         v = r[0].charCodeAt(0)
-                    when "short", "short int", "signed short", "signed short int", "unsigned short", "unsigned short int", "int", "signed int", "unsigned", "unsigned int", "long", "long int", "long int", "signed long", "signed long int", "unsigned long", "unsigned long int", "long long", "long long int", "long long int", "signed long long", "signed long long int", "unsigned long long", "unsigned long long int"
+                    when "uint16_t", "int16_t","uint32_t", "int32_t","uint64_t", "int64_t", "short", "short int", "signed short", "signed short int", "unsigned short", "unsigned short int", "int", "signed int", "unsigned", "unsigned int", "long", "long int", "long int", "signed long", "signed long int", "unsigned long", "unsigned long int", "long long", "long long int", "long long int", "signed long long", "signed long long int", "unsigned long long", "unsigned long long int"
                         b = _skipSpace(b)
                         r = _read(rt, /^[-+]?(?:([1-9][0-9]*)([eE]\+?[0-9]+)?)|0/, b, t.t)
                         v = parseInt(r[0])
-                    when "float", "double"
+                    when "float", "double" ,"single"
                         b = _skipSpace(b)
                         r = _read(rt, /^[-+]?(?:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?)|(?:([1-9][0-9]*)([eE]\+?[0-9]+)?)/, b, t.t)
                         v = parseFloat(r[0])

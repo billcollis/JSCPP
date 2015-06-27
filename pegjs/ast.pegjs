@@ -192,6 +192,8 @@ StorageClassSpecifier
 
 TypeSpecifier
     = a: (VOID
+    / AVRREG
+	/ AVRREGBIT
     / UINT8_T
 	/ INT8_T
 	/ UINT16_T
@@ -606,6 +608,8 @@ LineComment = "//" a:(!"\n" _)*  {return a.join('');};     // 6.4.9
 //-------------------------------------------------------------------------
 
 AUTO      = a:"auto"          !IdChar Spacing {return a;};
+AVRREG    = a:"avrreg"        !IdChar Spacing {return a;};
+AVRREGBIT = a:"avrregbit"     !IdChar Spacing {return a;};
 BREAK     = a:"break"         !IdChar Spacing {return a;};
 CASE      = a:"case"          !IdChar Spacing {return a;};
 CHAR      = a:"char"          !IdChar Spacing {return a;};
@@ -660,6 +664,8 @@ FALSE      = a:"false"          !IdChar Spacing {return a;};
 
 Keyword
     = ( "auto"
+      / "avrreg"
+      / "avrregbit"
       / "break"
       / "case"
       / "char"

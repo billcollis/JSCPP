@@ -64,6 +64,8 @@ module.exports = ->
         loadedLibraries: []
     @config.limits["int8_t"] = @config.limits["signed char"]# BC addition
     @config.limits["uint8_t"] = @config.limits["unsigned char"]# BC addition@config.limits["short int"] = @config.limits["short"]
+    @config.limits["avrreg"] = @config.limits["unsigned char"]# BC addition
+    @config.limits["avrregbit"] = @config.limits["unsigned char"]# BC addition
     @config.limits["signed short"] = @config.limits["short"]
     @config.limits["signed short int"] = @config.limits["short"]
     @config.limits["unsigned short int"] = @config.limits["unsigned short"]
@@ -320,6 +322,8 @@ module.exports = ->
     @types["(int8_t)"] = defaultOpHandler#BC
     @types["(signed char)"] = defaultOpHandler
     @types["(uint8_t)"] = defaultOpHandler#BC
+    @types["(avrreg)"] = defaultOpHandler#BC
+    @types["(avrregbit)"] = defaultOpHandler#BC
     @types["(unsigned char)"] = defaultOpHandler
     @types["(short)"] = defaultOpHandler
     @types["(short int)"] = defaultOpHandler

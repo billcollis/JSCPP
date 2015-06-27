@@ -37,7 +37,7 @@ module.exports = load: (rt) ->
                 b = _cin.v.buf
                 _cin.v.eofbit = b.length is 0
                 switch t.t.name
-                    when "char", "signed char", "unsigned char" , "uint8_t", "int8_t"
+                    when "char", "signed char", "unsigned char" , "uint8_t", "int8_t", "avrreg", "avrregbit"
                         b = _skipSpace(b)
                         r = _read(rt, /^./, b, t.t)
                         v = r[0].charCodeAt(0)

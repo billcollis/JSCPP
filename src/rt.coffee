@@ -324,7 +324,7 @@ CRuntime::isNumericType = (type) ->
 CRuntime::isUnsignedType = (type) ->
     if typeof type is "string"
         switch type
-            when "uint8_t", "uint16_t", "uint32_t", "uint64_t","unsigned char", "unsigned short", "unsigned short int", "unsigned", "unsigned int", "unsigned long", "unsigned long int", "unsigned long long", "unsigned long long int"
+            when "avrreg", "avrregbit", "uint8_t", "uint16_t", "uint32_t", "uint64_t","unsigned char", "unsigned short", "unsigned short int", "unsigned", "unsigned int", "unsigned long", "unsigned long int", "unsigned long long", "unsigned long long int"
                 true
             else
                 false
@@ -334,7 +334,7 @@ CRuntime::isUnsignedType = (type) ->
 CRuntime::isIntegerType = (type) ->
     if typeof type is "string"
         switch type
-            when "int8_t", "int16_t", "int32_t", "uint8_t", "uint16_t", "uint32_t","int64_t","char", "signed char", "unsigned char", "short", "short int", "signed short", "signed short int", "unsigned short", "unsigned short int", "int", "signed int", "unsigned", "unsigned int", "long", "long int", "long int", "signed long", "signed long int", "unsigned long", "unsigned long int", "long long", "long long int", "long long int", "signed long long", "signed long long int", "unsigned long long", "unsigned long long int", "bool"
+            when "avrreg", "avrregbit", "int8_t", "int16_t", "int32_t", "uint8_t", "uint16_t", "uint32_t","int64_t","char", "signed char", "unsigned char", "short", "short int", "signed short", "signed short int", "unsigned short", "unsigned short int", "int", "signed int", "unsigned", "unsigned int", "long", "long int", "long int", "signed long", "signed long int", "unsigned long", "unsigned long int", "long long", "long long int", "long long int", "signed long long", "signed long long int", "unsigned long long", "unsigned long long int", "bool"
                 true
             else
                 false

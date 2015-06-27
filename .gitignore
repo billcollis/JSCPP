@@ -35,7 +35,7 @@ JSCPP.v12.suo
 obj
 Web.*
 *.bak
-*.js
+
 dist\JSCPP.js
 lib
 

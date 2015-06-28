@@ -39,3 +39,6 @@ Web.*
 dist\JSCPP.js
 lib
 
+dist/JSCPP.js
+demo
+test

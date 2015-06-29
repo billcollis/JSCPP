@@ -86,21 +86,21 @@ Debugger::allVariables = ->
       if @rt.scope[scopeIndex].$name.indexOf('function') > -1  # if name is something like "function main" or "function foo"
         scopeName = @rt.scope[scopeIndex].$name.replace('function ', '') #store the name of the function as that will be the scope used while inside the function
       if typeof val == 'object' and 't' of val and 'v' of val
-        if !usedName.has(name)
-          usedName.add name
-          ret.push
-            scopelevel: scopeIndex #add the level 0 to ...
-            scopename: scopeName # add the scopeName
-            gentype: val.t.type #add the general type e.g. primitive
-            name: name
-            type: @rt.makeTypeString(val.t)
-            value: @rt.makeValueString(val)
+        if val.t.name != "avrreg" and val.t.name != "avrregbit"
+            if !usedName.has(name)
+              usedName.add name
+              ret.push
+                scopelevel: scopeIndex #add the level 0 to ...
+                scopename: scopeName # add the scopeName
+                gentype: val.t.type #add the general type e.g. primitive
+                name: name
+                type: @rt.makeTypeString(val.t)
+                value: @rt.makeValueString(val)
     scopeIndex = i += 1
   ret
 module.exports = Debugger
 
 Debugger::allRegisters = ->
-  usedName = new Set
   ret = []
   scopeName = 'global'
   scopeIndex = i = ref = 0
@@ -109,14 +109,9 @@ Debugger::allRegisters = ->
     for name of ref1
       val = ref1[name]
       if typeof val == 'object' and 't' of val and 'v' of val
-        if !usedName.has(name) and val.t == "avrreg"
-          usedName.add name
+        if val.t.name == "avrreg"
           ret.push
-            scopelevel: scopeIndex #add the level 0 to ...
-            scopename: scopeName # add the scopeName
-            gentype: val.t.type #add the general type e.g. primitive
             name: name
-            type: @rt.makeTypeString(val.t)
             value: @rt.makeValueString(val)
     scopeIndex = i += 1
   ret

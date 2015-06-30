@@ -630,7 +630,7 @@ CRuntime::getTypeSigniture = (type) ->
         else if type.ptrType is "array"
             ret += "!" + @getTypeSigniture(type.eleType)
         else if type.ptrType is "function"
-            ret += "#" + @getTypeSigniture(type.retType) + "!" + type.signature.map((e) ->
+            ret += "#" + @getTypeSigniture(type.retType) + "!" + type.signature.map((e) =>
                 @getTypeSigniture e
             ).join(",")
         ret += "}"

@@ -43,7 +43,7 @@ module.exports = load: (rt) ->
                         v = r[0].charCodeAt(0)
                     when "uint16_t", "int16_t","uint32_t", "int32_t","uint64_t", "int64_t", "short", "short int", "signed short", "signed short int", "unsigned short", "unsigned short int", "int", "signed int", "unsigned", "unsigned int", "long", "long int", "long int", "signed long", "signed long int", "unsigned long", "unsigned long int", "long long", "long long int", "long long int", "signed long long", "signed long long int", "unsigned long long", "unsigned long long int"
                         b = _skipSpace(b)
-                        r = _read(rt, /^[-+]?(?:([1-9][0-9]*)([eE]\+?[0-9]+)?)|0/, b, t.t)
+                        r = _read(rt, /^[-+]?(?:([0-9]*)([eE]\+?[0-9]+)?)|0/, b, t.t)
                         v = parseInt(r[0])
                     when "float", "double" ,"single"
                         b = _skipSpace(b)
@@ -57,8 +57,9 @@ module.exports = load: (rt) ->
                         rt.raiseException ">> operator in istream cannot accept " + rt.makeTypeString(t.t)
                 len = r[0].length
                 _cin.v.failbit = len is 0
-                t.v = rt.val(t.t, v).v
-                _cin.v.buf = b.substring(len)
+                if not _cin.v.failbit
+                    t.v = rt.val(t.t, v).v
+                    _cin.v.buf = b.substring(len)
                 return _cin
 
     _cinString = (rt, _cin, t) ->

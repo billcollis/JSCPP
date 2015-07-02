@@ -86,7 +86,7 @@ Debugger::allVariables = ->
       if @rt.scope[scopeIndex].$name.indexOf('function') > -1  # if name is something like "function main" or "function foo"
         scopeName = @rt.scope[scopeIndex].$name.replace('function ', '') #store the name of the function as that will be the scope used while inside the function
       if typeof val == 'object' and 't' of val and 'v' of val
-        if val.t.name != "avrreg" and val.t.name != "avrregbit"
+        if val.t.name != "avrreg" and val.t.name != "avrregbit" and !(val.t.type =="pointer" and val.t.ptrType == "function")  and val.t.type != "class" and name != "endl"
             if !usedName.has(name)
               usedName.add name
               ret.push
@@ -101,6 +101,23 @@ Debugger::allVariables = ->
 module.exports = Debugger
 
 Debugger::allRegisters = ->
+  ret = []
+  scopeName = 'global'
+  scopeIndex = i = ref = 0
+  while i < @rt.scope.length 
+    ref1 = @rt.scope[scopeIndex]
+    for name of ref1
+      val = ref1[name]
+      if typeof val == 'object' and 't' of val and 'v' of val
+        if val.t.name == "avrreg"
+          ret.push
+            name: name
+            value: @rt.makeValueString(val)
+    scopeIndex = i += 1
+  ret
+module.exports = Debugger
+
+Debugger::allFunctions = ->
   ret = []
   scopeName = 'global'
   scopeIndex = i = ref = 0

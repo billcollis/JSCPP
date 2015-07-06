@@ -42,3 +42,5 @@ lib
 dist/JSCPP.js
 demo
 test
+*.csproj
+src/debugger.js

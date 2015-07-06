@@ -22,12 +22,12 @@ module.exports = ->
                 min: 0x0000
                 bytes: 2
             "int":#BC changed int from 4bytes to 2bytes
-                max: 0x7fff
-                min: -0x8000
+                max: 0x7fffffff
+                min: -0x80000000
                 bytes: 4
             "unsigned":
-                max: 0xffff
-                min: 0x0000
+                max: 0xffffffff
+                min: 0x00000000
                 bytes: 4
             "long":
                 max: 0x7fffffff
@@ -69,14 +69,14 @@ module.exports = ->
     @config.limits["signed short"] = @config.limits["short"]
     @config.limits["signed short int"] = @config.limits["short"]
     @config.limits["unsigned short int"] = @config.limits["unsigned short"]
-    @config.limits["int16_t"] = @config.limits["int"]#BC addition
-    @config.limits["uint16_t"] = @config.limits["unsigned"]#BC addition
+    @config.limits["int16_t"] = @config.limits["short"]#BC addition
+    @config.limits["uint16_t"] = @config.limits["unsigned short"]#BC addition
     @config.limits["signed int"] = @config.limits["int"]
     @config.limits["unsigned int"] = @config.limits["unsigned"]
     @config.limits["long int"] = @config.limits["long"]
     @config.limits["long int"] = @config.limits["long"]
-    @config.limits["int32_t"] = @config.limits["long"]#BC addition
-    @config.limits["uint32_t"] = @config.limits["unsigned long"]#BC addition
+    @config.limits["int32_t"] = @config.limits["int"]#BC addition
+    @config.limits["uint32_t"] = @config.limits["unsigned"]#BC addition
     @config.limits["signed long"] = @config.limits["long"]
     @config.limits["signed long int"] = @config.limits["long"]
     @config.limits["unsigned long int"] = @config.limits["unsigned long"]

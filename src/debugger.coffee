@@ -74,7 +74,7 @@ Debugger::variable = (name) ->
                         value: @rt.makeValueString(val)
         ret
 
-Debugger::allVariables = ->
+Debugger::Variables = ->
   usedName = new Set
   ret = []
   scopeName = 'global'
@@ -98,9 +98,9 @@ Debugger::allVariables = ->
                 value: @rt.makeValueString(val)
     scopeIndex = i += 1
   ret
-module.exports = Debugger
 
-Debugger::allRegisters = ->
+
+Debugger::Registers = ->
   ret = []
   scopeName = 'global'
   scopeIndex = i = ref = 0
@@ -115,9 +115,18 @@ Debugger::allRegisters = ->
             value: @rt.makeValueString(val)
     scopeIndex = i += 1
   ret
-module.exports = Debugger
 
-Debugger::allFunctions = ->
+
+Debugger::WriteRegister = (name, value) ->
+    v = @rt.readVar(name)
+    #type: @rt.makeTypeString(v.t)
+    v.v = value;
+
+
+
+
+
+Debugger::Functions = ->
   ret = []
   scopeName = 'global'
   scopeIndex = i = ref = 0
@@ -126,7 +135,7 @@ Debugger::allFunctions = ->
     for name of ref1
       val = ref1[name]
       if typeof val == 'object' and 't' of val and 'v' of val
-        if val.t.name == "avrreg"
+        if val.t.type =="pointer" and val.t.ptrType == "function"
           ret.push
             name: name
             value: @rt.makeValueString(val)

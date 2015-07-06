@@ -115,7 +115,7 @@
     }
   };
 
-  Debugger.prototype.allVariables = function() {
+  Debugger.prototype.Variables = function() {
     var i, name, ref, ref1, ret, scopeIndex, scopeName, usedName, val;
     usedName = new Set;
     ret = [];
@@ -149,9 +149,7 @@
     return ret;
   };
 
-  module.exports = Debugger;
-
-  Debugger.prototype.allRegisters = function() {
+  Debugger.prototype.Registers = function() {
     var i, name, ref, ref1, ret, scopeIndex, scopeName, val;
     ret = [];
     scopeName = 'global';
@@ -174,9 +172,13 @@
     return ret;
   };
 
-  module.exports = Debugger;
+  Debugger.prototype.WriteRegister = function(name, value) {
+    var v;
+    v = this.rt.readVar(name);
+    return v.v = value;
+  };
 
-  Debugger.prototype.allFunctions = function() {
+  Debugger.prototype.Functions = function() {
     var i, name, ref, ref1, ret, scopeIndex, scopeName, val;
     ret = [];
     scopeName = 'global';
@@ -186,7 +188,7 @@
       for (name in ref1) {
         val = ref1[name];
         if (typeof val === 'object' && 't' in val && 'v' in val) {
-          if (val.t.name === "avrreg") {
+          if (val.t.type === "pointer" && val.t.ptrType === "function") {
             ret.push({
               name: name,
               value: this.rt.makeValueString(val)

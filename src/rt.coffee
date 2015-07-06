@@ -300,10 +300,10 @@ CRuntime::readVar = (varname) ->
 
 CRuntime::defVar = (varname, type, initval) ->
     # logger.log("defining variable: %j, %j", varname, type);
-    vc = @scope[@scope.length - 1]
-    if varname of vc
+    vc = @scope[@scope.length - 1]  #get last scope value
+    if varname of vc                # if the var exists within this scope
         @raiseException "variable " + varname + " already defined"
-    initval = @clone(@cast(type, initval))
+    initval = @clone(@cast(type, initval)) 
     if initval is undefined
         vc[varname] = @defaultValue(type)
         vc[varname].left = true

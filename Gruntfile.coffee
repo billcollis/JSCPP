@@ -53,7 +53,7 @@ module.exports = (grunt) ->
         browserify:
             dist:
                 files:
-                    "dist/JSCPP.js": ["lib/**/*.js"]
+                    "dist/CJS.js": ["lib/**/*.js"]
             dist_es6:
                 files:
                     "dist/JSCPP_es5.js": ["lib-es5/**/*.js", "!lib-es5/traceur_runtime.js", "!lib-es5/main.js"]
@@ -90,7 +90,7 @@ module.exports = (grunt) ->
                 ]
             dist_es6:
                 files:
-                    "dist/JSCPP_es5.js": "dist/JSCPP.js"
+                    "dist/JSCPP_es5.js": "dist/CJS.js"
 
         mochaTest:
             test:

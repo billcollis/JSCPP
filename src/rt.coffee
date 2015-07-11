@@ -318,6 +318,20 @@ CRuntime::inrange = (type, value) ->
         value <= limit.max and value >= limit.min
     else
         true
+
+CRuntime::fixoverunderrange = (type, value) -> # BC 11July15 fix primitive types over and underflow here
+    limit = @config.limits[type.name]
+    if @isPrimitiveType(type) 
+        while value > limit.max
+            value -= limit.max 
+            value--
+        while value < limit.min
+            value += limit.max 
+            value++
+        return value
+
+
+
 CRuntime::isNumericType = (type) ->
     @isFloatType(type) or @isIntegerType(type)
 
@@ -380,10 +394,10 @@ CRuntime::cast = (type, value) ->
         else if type.name in ["float", "double"]
             if !@isNumericType(value.t)
                 @raiseException "cannot cast " + @makeTypeString(value.t) + " to " + @makeTypeString(type)
-            if @inrange(type, value.v)
-                return @val(type, value.v)
-            else
-                @raiseException "overflow when casting " + @makeTypeString(value.t) + " to " + @makeTypeString(type)
+            #if @inrange(type, value.v)
+            return @val(type, value.v) # rt:val now fixes overundeflow
+            #else
+            #    @raiseException "overflow when casting " + @makeTypeString(value.t) + " to " + @makeTypeString(type)
         else
             if type.name.slice(0, 8) is "unsigned"
                 if !@isNumericType(value.t)
@@ -394,15 +408,15 @@ CRuntime::cast = (type, value) ->
                 @raiseException "cannot cast " + @makeTypeString(value.t) + " to " + @makeTypeString(type)
             if value.t.name is "float" or value.t.name is "double"
                 v = if value.v > 0 then Math.floor(value.v) else Math.ceil(value.v)
-                if @inrange(type, v)
-                    return @val(type, v)
-                else
-                    @raiseException "overflow when casting " + @makeValString(value) + " to " + @makeTypeString(type)
+                #if @inrange(type, v)
+                return @val(type, v) # rt:val now fixes overundeflow of floats????
+                #else
+                #    @raiseException "overflow when casting " + @makeValString(value) + " to " + @makeTypeString(type)
             else
-                if @inrange(type, value.v)
-                    return @val(type, value.v)
-                else
-                    @raiseException "overflow when casting " + @makeValString(value) + " to " + @makeTypeString(type)
+                #if @inrange(type, value.v)
+                return @val(type, value.v) # rt:val now fixes overundeflow
+                #else
+                #    @raiseException "overflow when casting " + @makeValString(value) + " to " + @makeTypeString(type)
     else if @isPointerType(type)
         if @isFunctionType(type)
             if @isFunctionType(value.t)
@@ -461,7 +475,8 @@ CRuntime::exitScope = (scopename) ->
 
 CRuntime::val = (type, v, left) ->
     if @isNumericType(type) and !@inrange(type, v)
-        @raiseException "overflow of #{@makeValueString(v)}(#{@makeTypeString(type)})"
+        v=@fixoverunderrange(type, v)
+        #@raiseException "overflow of #{@makeValueString(v)}(#{@makeTypeString(type)})"
     if left is undefined
         left = false
     {

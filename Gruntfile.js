@@ -59,7 +59,7 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          "dist/JSCPP.js": ["lib/**/*.js"]
+          "dist/CJS.js": ["lib/**/*.js"]
         }
       },
       dist_es6: {
@@ -109,7 +109,7 @@ module.exports = function(grunt) {
       },
       dist_es6: {
         files: {
-          "dist/JSCPP_es5.js": "dist/JSCPP.js"
+          "dist/JSCPP_es5.js": "dist/CJS.js"
         }
       }
     },

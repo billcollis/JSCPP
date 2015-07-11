@@ -400,16 +400,15 @@
           if (dummy) {
             b = l.v;
             l.v = l.v + 1;
-            if (rt.inrange(l.t, l.v)) {
-              return rt.val(l.t, b);
-            }
-            rt.raiseException("overflow during post-increment " + (rt.makeValString(l)));
+            l.v = rt.fixoverunderrange(l.t, l.v);
+            return rt.val(l.t, b);
           } else {
             l.v = l.v + 1;
             if (rt.inrange(l.t, l.v)) {
               return l;
             }
-            rt.raiseException("overflow during pre-increment " + (rt.makeValString(l)));
+            l.v = rt.fixoverunderrange(l.t, l.v);
+            return l;
           }
         }
       },
@@ -425,17 +424,16 @@
           if (dummy) {
             b = l.v;
             l.v = l.v - 1;
-            if (rt.inrange(l.t, l.v)) {
-              return rt.val(l.t, b);
-            }
-            rt.raiseException("overflow during post-decrement");
+            l.v = rt.fixoverunderrange(l.t, l.v);
+            return rt.val(l.t, b);
           } else {
             l.v = l.v - 1;
             b = l.v;
             if (rt.inrange(l.t, l.v)) {
               return l;
             }
-            rt.raiseException("overflow during pre-decrement");
+            l.v = rt.fixoverunderrange(l.t, l.v);
+            return l;
           }
         }
       },

@@ -109,7 +109,7 @@ module.exports = function(grunt) {
       },
       dist_es6: {
         files: {
-          "dist/JSCPP_es5.js": "dist/CJS.js"
+          "dist/JSCPP_es5.js": "dist/JSCPP.js"
         }
       }
     },

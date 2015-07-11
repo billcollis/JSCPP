@@ -399,14 +399,14 @@ CRuntime::cast = (type, value) ->
             #else
             #    @raiseException "overflow when casting " + @makeTypeString(value.t) + " to " + @makeTypeString(type)
         else
-            if type.name.slice(0, 8) is "unsigned"
+            if type.name.slice(0, 8) is "unsigned" or type.name.slice(0, 4) is "uint" #BC added uint test
                 if !@isNumericType(value.t)
                     @raiseException "cannot cast " + @makeTypeString(value.t) + " to " + @makeTypeString(type)
                 else if value.v < 0
                     @raiseException "cannot cast negative value to " + @makeTypeString(type)
             if !@isNumericType(value.t)
                 @raiseException "cannot cast " + @makeTypeString(value.t) + " to " + @makeTypeString(type)
-            if value.t.name is "float" or value.t.name is "double"
+            if value.t.name is "float" or value.t.name is "double" or value.t.name is "single" #BC added single
                 v = if value.v > 0 then Math.floor(value.v) else Math.ceil(value.v)
                 #if @inrange(type, v)
                 return @val(type, v) # rt:val now fixes overundeflow of floats????

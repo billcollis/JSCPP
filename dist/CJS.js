@@ -20250,7 +20250,7 @@ CRuntime.prototype.cast = function(type, value) {
       }
       return this.val(type, value.v);
     } else {
-      if (type.name.slice(0, 8) === "unsigned") {
+      if (type.name.slice(0, 8) === "unsigned" || type.name.slice(0, 4) === "uint") {
         if (!this.isNumericType(value.t)) {
           this.raiseException("cannot cast " + this.makeTypeString(value.t) + " to " + this.makeTypeString(type));
         } else if (value.v < 0) {
@@ -20260,7 +20260,7 @@ CRuntime.prototype.cast = function(type, value) {
       if (!this.isNumericType(value.t)) {
         this.raiseException("cannot cast " + this.makeTypeString(value.t) + " to " + this.makeTypeString(type));
       }
-      if (value.t.name === "float" || value.t.name === "double") {
+      if (value.t.name === "float" || value.t.name === "double" || value.t.name === "single") {
         v = value.v > 0 ? Math.floor(value.v) : Math.ceil(value.v);
         return this.val(type, v);
       } else {

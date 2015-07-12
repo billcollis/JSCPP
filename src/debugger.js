@@ -178,6 +178,12 @@
     return v.v = value;
   };
 
+  Debugger.prototype.ReadRegister = function(name) {
+    var v;
+    v = this.rt.readVar(name);
+    return v.v;
+  };
+
   Debugger.prototype.Functions = function() {
     var i, name, ref, ref1, ret, scopeIndex, scopeName, val;
     ret = [];

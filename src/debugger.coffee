@@ -122,6 +122,10 @@ Debugger::WriteRegister = (name, value) ->
     #type: @rt.makeTypeString(v.t)
     v.v = value;
 
+Debugger::ReadRegister = (name) ->
+    v = @rt.readVar(name)
+    return v.v;
+
 
 
 

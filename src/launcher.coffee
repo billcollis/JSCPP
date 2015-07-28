@@ -21,6 +21,8 @@ includes =
     cstdio: require("./includes/cstdio")
     cstdlib: require("./includes/cstdlib")
     iomanip: require("./includes/iomanip")
+    utildelay: require("./includes/utildelay")
+    avrio: require("./includes/avrio")
 
 headerAlias =
     "ctype.h": "cctype"
